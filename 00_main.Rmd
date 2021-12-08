@@ -64,11 +64,12 @@ xaringanExtra::use_freezeframe()
 library(kableExtra)
 library(tibble)
 library(here)
+library(purrr)
 con <- DBI::dbConnect(RSQLite::SQLite(), 
         dbname = here("data", "municipal_performance.sqlite3"))
 Sys.setenv(PAGEDOWN_CHROME = "/bin/brave-browser")
+Sys.setenv(CHROMOTE_CHROME = "/bin/brave-browser")
 ```
-
 
 ---
 ```{r, child=c(here('sections', '01_software_setup.Rmd'))}
@@ -86,20 +87,21 @@ Sys.setenv(PAGEDOWN_CHROME = "/bin/brave-browser")
 ```{r, child=c(here('sections', '05_sql_functions.Rmd'))}
 ```
 ---
+```{r, child=c(here('sections', '06_creating_altering_tables.Rmd'))}
+```
+---
+class: middle inverse
 
-# What is sql ?
-
-As SQL is specific to interacting with relational databases, it falls in the category of DSL (Domain Specific Languages).
-
-SQL is comprised of many types of statements which are classed as SQL sub-languages:
-
-* DQL: Data Query language.
-* DDL: Data Definition language (Contains commands to create and modify tasks).
-* DCL: Data Control Language (Contains access control related commands).
-* DML: Data Manipulation Language (Contains commands for insert, update and delete operations).
-
+# Using SQL within R
 
 ---
+
 # Resources
 
+* [SQL book](https://www.amazon.com/SQL-Beginners-Fourth-Andy-Oppel/dp/0071842594)
 * [Differences between RDBMS](https://www.datacamp.com/community/blog/sql-differences)
+
+---
+class: middle inverse center
+
+# Thank you !

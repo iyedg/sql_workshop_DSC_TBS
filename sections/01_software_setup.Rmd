@@ -42,20 +42,20 @@ of the .b[SQL] standard.
 .w-30.pa1.center[
 
 ```{r}
-knitr::include_graphics("../assets/sqlite_logo.svg")
+knitr::include_graphics("assets/sqlite_logo.svg")
 ```
 
 ]
 
 .w-30.pa1.center[
 ```{r}
-knitr::include_graphics("../assets/mysql_logo.svg")
+knitr::include_graphics("assets/mysql_logo.svg")
 ```
 ]
 
 .w-30.pa1.center[
 ```{r}
-knitr::include_graphics("../assets/postgresql_logo.png")
+knitr::include_graphics("assets/postgresql_logo.png")
 ```
 ]
 
@@ -110,10 +110,10 @@ Has to do with **How** queries are run. Usually of importance to System Administ
 .f4.center[Use shell clients]
 
 ```{r, fig.cap = "PostgreSQL Shell"}
-knitr::include_graphics("../assets/psql_shell.png")
+knitr::include_graphics("assets/psql_shell.png")
 ```
 ```{r, fig.cap = "SQLite Shell"}
-knitr::include_graphics("../assets/sqlite_shell.png")
+knitr::include_graphics("assets/sqlite_shell.png")
 ```
 
 ]
@@ -124,10 +124,28 @@ knitr::include_graphics("../assets/sqlite_shell.png")
 .center[
 
 ```{r, fig.cap = "DBeaver"}
-knitr::include_graphics("../assets/dbeaver_logo.svg")
+knitr::include_graphics("assets/dbeaver_logo.svg")
 ```
 ]
 ]
+---
+# SQL Sublanguages
+
+.center[
+```{r, out.width="45%"}
+knitr::include_graphics("assets/sql_sublanguages.png")
+```
+]
+
+**Source:** https://www.geeksforgeeks.org/sql-ddl-dql-dml-dcl-tcl-commands/
+
+???
+
+* DDL: Data Definition language (Contains commands to create and modify tasks).
+* DML: Data Manipulation Language (Contains commands for insert, update and delete operations).
+* DQL: Data Query language.
+* DCL: Data Control Language (Contains access control related commands).
+
 ---
 
 class: middle center inverse

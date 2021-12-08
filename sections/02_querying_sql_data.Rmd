@@ -25,7 +25,7 @@ class: middle inverse
 
 .pull-right[
 ```{r, echo=F}
-knitr::include_graphics("../assets/undraw_data_reports_706v.svg")
+knitr::include_graphics("assets/undraw_data_reports_706v.svg")
 ```
 ]
 ---
@@ -33,10 +33,15 @@ knitr::include_graphics("../assets/undraw_data_reports_706v.svg")
 # Meet our database
 
 .center[
-```{r, echo=F}
-knitr::include_graphics("../assets/erd.png")
+```{r, echo=F, out.width="45%"}
+knitr::include_graphics("assets/erd.png")
 ```
 ]
+
+???
+
+* Mention primary keys
+* Mention foreign keys
 
 
 ---

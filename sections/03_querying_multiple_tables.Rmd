@@ -15,7 +15,7 @@ class: middle inverse
 
 .center[
 ```{r, out.width="65%"}
-knitr::include_graphics("../assets/sql_joins.webp")
+knitr::include_graphics("assets/sql_joins.webp")
 ```
 ]
 

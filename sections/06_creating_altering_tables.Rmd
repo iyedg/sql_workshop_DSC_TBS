@@ -1,8 +1,6 @@
 class: middle inverse
 
-# 2 - Creating and Altering Tables
-
-*(see page 68)*
+# Creating and Altering Tables
 
 **Key Skills & Concepts:**
 * Create SQL Tables
@@ -10,3 +8,104 @@ class: middle inverse
 * Specify Column Default Values
 * Alter SQL Tables
 * Delete SQL Tables
+
+---
+
+# Creating tables
+
+.panelset[
+.panel[.panel-name[Syntax]
+
+```sql
+CREATE TABLE <table name>
+( <table element> [ { , <table element> } . . . ] )
+```
+]
+
+.panel[.panel-name[SQL]
+
+```{sql, connection=con, echo=T}
+CREATE TABLE IF NOT EXISTS dsc_table
+(
+    trainee_id INTEGER
+    ,
+  trainee_first_name CHAR
+    ,
+  trainee_last_name CHAR
+)
+```
+]
+]
+
+???
+* The syntax and its explanations take up about 38 pages of
+the SQL:2006 standard.
+* Mention different types, show as a google search
+
+---
+# Drop SQL tables
+
+.panelset[
+.panel[.panel-name[Syntax]
+
+```sql
+DROP TABLE <table name>;
+```
+]
+
+.panel[.panel-name[SQL]
+```{sql, connection=con, echo=T}
+DROP TABLE dsc_table;
+```
+
+]
+
+]
+
+---
+# Alter SQL tables
+
+.panelset[
+.panel[.panel-name[Syntax]
+```sql
+ALTER TABLE <table name>
+ADD [COLUMN] <column definition>
+| ALTER [COLUMN] <column name>
+{ SET DEFAULT <default value> | DROP DEFAULT }
+| DROP [COLUMN] <column name> { CASCADE | RESTRICT }
+```
+]
+.panel[.panel-name[SQL (Setup)]
+```{sql, connection=con, echo = T}
+CREATE TABLE IF NOT EXISTS dsc_table
+(
+  trainee_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+    ,
+  trainee_first_name CHAR
+    ,
+  trainee_last_name CHAR
+);
+
+INSERT
+    INTO
+    dsc_table (
+        trainee_first_name
+        , trainee_last_name
+    )
+VALUES (
+    "First name"
+    , "Last Name"
+)
+```
+]
+
+.panel[.panel-name[Adding a column]
+```{sql, connection = con, echo = T}
+ALTER TABLE dsc_table ADD trainee_join_date DATE DEFAULT "2201-01-01";
+```
+
+]
+]
+---
+
+
