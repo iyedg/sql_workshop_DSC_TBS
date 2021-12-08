@@ -48,3 +48,9 @@ po/*~
 ### R.Bookdown Stack ###
 # R package: bookdown caching files
 /*_files/
+
+*.html
+*.mp4
+*.pdf
+*.pptx
+$HOME
