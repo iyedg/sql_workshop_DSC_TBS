@@ -1,0 +1,207 @@
+---
+title: lkdfj
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+class: middle inverse
+
+.pull-left[
+# Querying SQL data
+
+**Key Skills & Concepts:**
+* Use a .b[SELECT] Statement to .underline[Retrieve Data]
+* Use the .b[WHERE] Clause to .underline[Define Search Conditions]
+* Use the .b[GROUP BY] Clause to Group Query Results
+* Use the .b[HAVING] Clause to Specify Group Search Conditions
+* Use the .b[ORDER BY] Clause to Sort Query Results
+]
+
+.pull-right[
+```{r, echo=F}
+knitr::include_graphics("../assets/undraw_data_reports_706v.svg")
+```
+]
+---
+
+# Meet our database
+
+.center[
+```{r, echo=F}
+knitr::include_graphics("../assets/erd.png")
+```
+]
+
+
+---
+
+# Using a .b[SELECT] statement.
+
+.f3[Syntax:]
+
+```sql
+SELECT [ DISTINCT | ALL ] { * | <select list> }
+FROM <table reference> [ { , <table reference> } . . . ]
+```
+
+--
+
+.pull-left[
+```{sql, connection=con, output.var="trials", echo=T}
+SELECT *
+  FROM municipalities;
+```
+]
+.pull-right[
+```{r}
+trials %>% head() %>% kable()
+```
+]
+
+---
+
+# Using the .b.underline[WHERE] clause for search conditions.
+
+.panelset[
+.panel[.panel-name[Syntax]
+
+```sql
+SELECT [ DISTINCT | ALL ] { * | <select list> }
+FROM <table reference> [ { , <table reference> } . . . ]
+[ WHERE <search condition> ]
+```
+
+The .b[WHERE] clause represents a .underline[filter] for the result returned by the .b[FROM]
+clause.
+]
+
+.panel[.panel-name[SQL]
+```{sql, connection=con, output.var="where_table", echo=T}
+SELECT *
+FROM municipalities
+WHERE municipalities.governorate_id = 11;
+```
+]
+
+.panel[.panel-name[Output]
+```{r}
+where_table %>% kable() %>% kable_minimal()
+```
+]
+]
+
+
+???
+
+The `<search condition>` is a *predicate*: an expression that defines a fact about
+any rows returned by the .b[SELECT] statement.
+
+---
+
+# Using multiple predicates with the .b[WHERE] clause
+
+.pull-left[
+.f2.b.center[OR]
+```{r}
+tibble(
+  " "= c("True", "False", "NULL"),
+  "True" = c("True", "True", "True"),
+  "False" = c("True", "False", "NULL"),
+  "NULL" = c("True", "NULL", "NULL"),
+) %>% kable() %>% kable_minimal()
+```
+]
+
+.pull-left[
+.f2.b.center[AND]
+```{r}
+tibble(
+  " "= c("True", "False", "NULL"),
+  "True" = c("True", "False", "NULL"),
+  "False" = c("False", "False", "False"),
+  "NULL" = c("NULL", "False", "NULL"),
+) %>% kable() %>% kable_minimal()
+```
+]
+
+
+---
+# Using multiple predicates with the .b[WHERE] clause (*Cont.*)
+
+.panelset[
+
+.panel[.panel-name[SQL]
+```{sql, connection=con, output.var="multiple_predicate", echo=T}
+SELECT *
+FROM municipalities
+WHERE
+  municipalities.governorate_id >= 11 AND
+  municipalities.governorate_id <= 13;
+```
+]
+
+.panel[.panel-name[Output]
+```{r}
+multiple_predicate %>% dplyr::sample_n(5) %>% kable() %>% kable_minimal()
+```
+]
+
+.panel[.panel-name[SQL multiple predicates]
+```{sql, connection=con, echo=T, output.var="mult_pred_not"}
+SELECT *
+FROM municipalities AS m
+WHERE
+  m.name_fr LIKE "L%";
+```
+]
+
+.panel[.panel-name[Output multiple predicates]
+
+```{r}
+mult_pred_not %>% kable() %>% kable_minimal()
+```
+]
+
+]
+
+???
+* Demonstrate in DBeaver the example with just one condition LIKE %hour.
+
+* Exercise: Find all instances of a municipality where the name starts with a T.
+
+---
+# Other comparison operators
+
+* .f4.b[NOT]: used to negate the return value of a predicate.
+* .f4.b[<> OR != ] (not equal): used to accept any value that is .b[different]
+from the specified value for this operator.
+
+.panelset[
+.panel[.panel-name[SQL]
+```{sql, connection=con, output.var="example_not", echo=T}
+SELECT DISTINCT municipalities.governorate_id 
+FROM municipalities
+WHERE municipalities.governorate_id != 11;
+```
+]
+.panel[.panel-name[Output]
+```{r}
+example_not %>% head() %>% kable()
+```
+]
+]
+
+---
+
+# Practice problems
+
+1. Show a list of municipality names in French and Arabic where the first letter of the French name is `F` .
+
+2. Show a list of municipalities that are either in the governorate with `id = 11`
+or with `id = 41`. Their names do **NOT** start with the letter `T`.

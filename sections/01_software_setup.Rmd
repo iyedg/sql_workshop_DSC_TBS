@@ -1,0 +1,141 @@
+class: middle inverse center
+
+
+# Software tools
+
+---
+
+# SQL and RDBMS
+
+.pull-left[
+.center[
+.f2.lh-title[
+  .b[S]rtuctured .b[Q]uery .b[L]anguage
+]
+The language used to deal with data and databases. 
+
+It is standardised in .b[ISO SQL:2006]
+]
+]
+
+--
+
+.pull-right[
+.center[
+.f2.lh-title[
+.b[R]elational .b[D]atabase .b[M]anagement .b[S]ystem
+]
+The software implementing the language. It is responsible
+for executing the queries.
+
+There are multiple implementations
+of the .b[SQL] standard.
+]
+]
+
+---
+
+#.b[R]elational .b[D]atabase .b[M]anagement .b[S]ystems
+
+.flex.justify-between[
+
+.w-30.pa1.center[
+
+```{r}
+knitr::include_graphics("../assets/sqlite_logo.svg")
+```
+
+]
+
+.w-30.pa1.center[
+```{r}
+knitr::include_graphics("../assets/mysql_logo.svg")
+```
+]
+
+.w-30.pa1.center[
+```{r}
+knitr::include_graphics("../assets/postgresql_logo.png")
+```
+]
+
+]
+
+--
+
+.pull-left[
+### Syntax differences
+* Case sensitivity
+* Quotation marks
+* Date functions
+* Window functions
+]
+
+--
+
+.pull-right[
+### Implementation differences
+
+Has to do with **How** queries are run. Usually of importance to System Administrators.
+]
+
+---
+# Which one to use ?
+
+.pull-left[
+.f3.center[.b[SQLite]]
+
+* Embedded devices
+* Low traffic websites
+* Data analysis
+* Data transfer format
+* Education and training
+]
+
+--
+
+.pull-left[
+.f3.center[.b[Client/Server RDMBS <br> (PostgreSQL)]]
+
+* Client / Server applications (over a network)
+* High-volume Websites
+* Very large datasets
+* High concurrency
+]
+
+---
+# SQL Clients
+
+.pull-left[
+.f4.center[Use shell clients]
+
+```{r, fig.cap = "PostgreSQL Shell"}
+knitr::include_graphics("../assets/psql_shell.png")
+```
+```{r, fig.cap = "SQLite Shell"}
+knitr::include_graphics("../assets/sqlite_shell.png")
+```
+
+]
+
+.pull-right[
+.f4.center[GUI Clients]
+
+.center[
+
+```{r, fig.cap = "DBeaver"}
+knitr::include_graphics("../assets/dbeaver_logo.svg")
+```
+]
+]
+---
+
+class: middle center inverse
+
+# Intermission: Make sure software is installed.
+
+```sql
+SELECT "Hello World!";
+```
+
+.f4.b.ttu[*see you space cowboy*]

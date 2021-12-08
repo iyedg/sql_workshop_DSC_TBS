@@ -1,0 +1,105 @@
+---
+title: "SQL Workshop"
+subtitle: "SQL 101"  
+author: 
+  - "Iyed Ghedamsi"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 9, fig.height = 3.5, fig.retina = 3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = F,
+  message = FALSE,
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+#light_yellow <- "#252321"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "tachyons"))
+xaringanExtra::use_panelset()
+xaringanExtra::use_progress_bar(color = blue, location = "top")
+xaringanExtra::use_scribble()
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+xaringanExtra::use_freezeframe()
+```
+
+```{r}
+library(kableExtra)
+library(tibble)
+library(here)
+con <- DBI::dbConnect(RSQLite::SQLite(), 
+        dbname = here("data", "municipal_performance.sqlite3"))
+Sys.setenv(PAGEDOWN_CHROME = "/bin/brave-browser")
+```
+
+
+---
+```{r, child=c(here('sections', '01_software_setup.Rmd'))}
+```
+---
+```{r, child=c(here('sections', '02_querying_sql_data.Rmd'))}
+```
+---
+```{r, child=c(here('sections', '03_querying_multiple_tables.Rmd'))}
+```
+---
+```{r, child=c(here('sections', '04_modifying_sql_data.Rmd'))}
+```
+---
+```{r, child=c(here('sections', '05_sql_functions.Rmd'))}
+```
+---
+
+# What is sql ?
+
+As SQL is specific to interacting with relational databases, it falls in the category of DSL (Domain Specific Languages).
+
+SQL is comprised of many types of statements which are classed as SQL sub-languages:
+
+* DQL: Data Query language.
+* DDL: Data Definition language (Contains commands to create and modify tasks).
+* DCL: Data Control Language (Contains access control related commands).
+* DML: Data Manipulation Language (Contains commands for insert, update and delete operations).
+
+
+---
+# Resources
+
+* [Differences between RDBMS](https://www.datacamp.com/community/blog/sql-differences)

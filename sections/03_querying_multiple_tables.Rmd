@@ -1,0 +1,164 @@
+class: middle inverse
+
+class: middle inverse
+
+# Querying Multiple Tables
+
+.b[Key Skills & Concepts]:
+* Perform Basic Join Operations
+* Join Tables with Shared Column Names
+* Use the Condition Join
+* Perform Union Operations
+
+---
+# SQL Joins
+
+.center[
+```{r, out.width="65%"}
+knitr::include_graphics("../assets/sql_joins.webp")
+```
+]
+
+*Source: * https://dataschool.com/how-to-teach-people-sql/sql-join-types-explained-visually/
+
+---
+
+# Cross Joins
+
+.f3[Also called .underline[cartesian product]]
+
+.panelset[
+
+.panel[.panel-name[SQL]
+```{sql, connection=con, echo=T, output.var="cross_join"}
+SELECT municipalities.municipality_id, governorates.governorate_id
+FROM municipalities, governorates;
+```
+]
+
+.panel[.panel-name[Output (partial)]
+```{r}
+cross_join %>% head() %>% kable()
+```
+]
+]
+
+---
+
+# Inner Joins
+
+.f3[Inner joins are assumed by default. Using .b[JOIN] is equivalent to .b[INNER JOIN]]
+
+.panelset[
+.panel[.panel-name[SQL]
+```{sql, connection=con, echo=T, output.var="inner_join_df"}
+SELECT
+  m.municipality_id,
+  m.name_fr,
+  g.governorate_id,
+  g.name_fr
+FROM
+  municipalities m
+INNER JOIN 
+  governorates g
+  ON
+  m.governorate_id = g.governorate_id
+WHERE
+  g.governorate_id = 13;
+```
+]
+
+.panel[.panel-name[Output (partial)]
+```{r}
+inner_join_df %>% head() %>% kable()
+```
+]
+]
+
+---
+# Left join
+
+.f3[With a left join, we make sure we keep all records from the left most table in our query.]
+
+.panelset[
+.panel[.panel-name[SQL]
+```{sql, connection=con, echo=T, output.var="left_join_df"}
+SELECT m.name_fr, e.score
+FROM   municipalities m
+       LEFT JOIN evaluations e
+              ON e.municipality_id = m.municipality_id
+WHERE e.year = 2017; 
+```
+]
+
+.panel[.panel-name[Output (partial)]
+```{r}
+left_join_df %>% head() %>% kable()
+```
+
+]
+
+]
+---
+# Self join
+
+Self joins are useful when a table contains a hierarchical 
+or a graph structure.
+
+.panelset[
+.panel[.panel-name[SQL]
+```{sql, connection=con, echo=T, output.var="self_join"}
+SELECT
+    c.criterion_id
+    , c.parent_id
+    , pc.criterion_id AS pc_criterion_id
+FROM
+    criteria c
+LEFT JOIN criteria pc ON
+    c.parent_id = pc.criterion_id;
+```
+]
+.panel[.panel-name[Output (partial)]
+```{r}
+self_join %>% head() %>% kable()
+```
+
+]
+]
+---
+# Querying more than two tables
+
+We wish to have a table showing a .underline[complete] list of municipalities,
+their corresponding governorates, their evaluation criteria and scores for the year 2017.
+
+--
+
+```sql
+SELECT
+    m.name_fr municipality_name
+    ,
+    g.name_fr governorate_name
+    ,
+    c.name_fr criterion_name
+    ,
+    e.score
+FROM
+    municipalities m
+LEFT JOIN evaluations e ON
+    m.municipality_id = e.municipality_id
+INNER JOIN governorates g ON
+    m.governorate_id = g.governorate_id
+INNER JOIN criteria c ON
+    e.criterion_id = c.criterion_id
+WHERE
+    e."year" = 2017;
+```
+---
+
+# Practice problems:
+
+1. Modify the last query to include the results only for criteria that do not have a parent.
+1. Using a cross join, simulate the result of an inner join between the `municipalities`
+and `governorates` tables.
+2. Which type of condition join should you use if you want to return only matched rows ?
+3. How many tables are contained in a self-join?

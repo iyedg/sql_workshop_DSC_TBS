@@ -1,0 +1,164 @@
+class: middle inverse
+
+# SQL Functions and Value Expressions
+
+*page 244*
+
+**Key Skills & Concepts:**
+* Use Set Functions
+* Use Value Functions
+* Use Value Expressions
+* Use Special Values
+---
+
+# Set functions
+
+I discuss five set functions: .b[COUNT], .b[MAX], .b[MIN], .b[SUM], and .b[AVG]
+
+.panelset[
+.panel[.panel-name[COUNT]
+
+Count the total number of evaluations tracked in the database.
+
+```sql
+SELECT count(*) AS TOTAL_EVALUATIONS
+FROM evaluations;
+```
+]
+
+.panel[.panel-name[COUNT (continued)]
+```sql
+SELECT
+    count(parent_id) AS count_of_parents
+    , count(criterion_id) AS count_of_leaves
+FROM
+    criteria c;
+```
+]
+
+.panel[.panel-name[MAX/MIN]
+
+```sql
+SELECT
+    e.criterion_id
+    ,
+    MAX(e.score) AS highest_score
+    , MIN(e.score) AS lowest_score
+FROM
+    evaluations e
+GROUP BY
+    e.criterion_id ;
+```
+The .b[MAX] and .b[MIN] functions are not limited to numeric data. You can also use them to
+compare character strings. 
+]
+
+.panel[.panel-name[SUM]
+```sql
+SELECT
+    e.municipality_id
+    , SUM(e.score) AS TOTAL_SCORE
+FROM
+    evaluations e
+WHERE
+    e."year" = 2018
+GROUP BY
+    e.municipality_id
+ORDER BY
+    TOTAL_SCORE DESC;
+```
+]
+
+.panel[.panel-name[AVG]
+```sql
+SELECT
+    e.municipality_id
+    , AVG(e.score) AS TOTAL_SCORE
+FROM
+    evaluations e
+WHERE
+    e."year" = 2018
+GROUP BY
+    e.municipality_id
+ORDER BY
+    TOTAL_SCORE DESC;
+```
+]
+]
+---
+class: middle inverse
+
+# Value functions
+
+---
+
+# String value functions
+
+.b[SUBSTRING], .b[UPPER], and .b[LOWER]
+
+.panelset[
+.panel[.panel-name[UPPER/LOWER]
+```sql
+SELECT
+    name_fr
+    ,
+    UPPER(name_fr)
+    , LOWER(name_fr)
+FROM
+    governorates g; 
+```
+]
+
+.panel[.panel-name[SUBSTRING]
+```sql
+SELECT
+    name_fr AS municipality_name
+    ,
+    SUBSTRING(name_fr, 4, 100)
+FROM
+    municipalities m
+WHERE
+    m.name_fr LIKE "El%";
+```
+]
+
+]
+
+---
+class: middle inverse
+
+# Datetime Value Functions
+
+```sql
+SELECT CURRENT_DATE;
+SELECT CURRENT_TIME;
+SELECT CURRENT_TIMESTAMP;
+```
+
+---
+# Using a .b[CAST] expression
+
+To use the CAST value expression, you must specify the CAST keyword, and, in
+parentheses, provide the column name, the AS keyword, and the new data type.
+
+```sql
+SELECT
+    CAST(
+        SUBSTRING(criterion_id, 1, 2) AS INT
+    ) AS INT_PARENT_ID
+FROM
+    evaluations e;
+```
+
+---
+
+# Practice problems
+
+1. How many municipalities are there in Tunisia ?
+2. How many municipalities have been evaluated in 2017 ?
+3. What is the average score for a municipality in `Kairouan` in 2018 ?
+1. Which set function should you use to add together the values in a column?
+  - (A) MAX
+  - (B) COUNT
+  - (C) SUM
+  - (D) AVG

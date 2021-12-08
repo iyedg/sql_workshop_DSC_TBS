@@ -1,0 +1,12 @@
+class: middle inverse
+
+# 3 - Data Integrity
+*see page 98*
+
+**Key Skills & Concepts:**
+* Understand Integrity Constraints
+* Use NOT NULL Constraints
+* Add UNIQUE Constraints
+* Add PRIMARY KEY Constraints
+* Add FOREIGN KEY Constraints
+* Define CHECK Constraints

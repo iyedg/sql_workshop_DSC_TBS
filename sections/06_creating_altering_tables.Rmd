@@ -1,0 +1,12 @@
+class: middle inverse
+
+# 2 - Creating and Altering Tables
+
+*(see page 68)*
+
+**Key Skills & Concepts:**
+* Create SQL Tables
+* Specify Column Data Types
+* Specify Column Default Values
+* Alter SQL Tables
+* Delete SQL Tables

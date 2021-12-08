@@ -1,0 +1,104 @@
+
+# Modifying SQL Data
+*page 195*
+**Key Skills & Concepts:**
+* Insert SQL Data
+* Update SQL Data
+* Delete SQL Data
+
+---
+
+# Inserting data
+
+.panelset[
+.panel[.panel-name[Syntax]
+```sql
+INSERT INTO <table name>
+[ ( <column name> [ { , <column name> } . . . ] ) ]
+VALUES ( <value> [ { , <value> } . . . ] )
+```
+]
+.panel[.panel-name[SQL]
+```sql
+INSERT INTO municipalities VALUES (0, 'TBS', 'TBS', 41);
+INSERT INTO governorates (name_ar, name_fr) VALUES ("TBS GOV", "TBS GOV");
+
+# This query is used to get the ID of the new governorate
+SELECT * FROM governorates g WHERE g.name_ar = "TBS GOV";
+```
+]
+]
+
+---
+
+# Updating data
+
+.panelset[
+.panel[.panel-name[Syntax]
+```sql
+UPDATE <table name>
+SET <set clause expression> [ { , <set clause expression> } . . . ]
+[ WHERE <search condition> ]
+```
+]
+
+.panel[.panel-name[SQL]
+```sql
+UPDATE
+    municipalities
+SET
+    governorate_id = 64
+WHERE
+    governorate_id = 41
+    AND name_ar = "TBS";
+```
+]
+
+]
+
+---
+
+# Deleting data
+
+.panelset[
+.panel[.panel-name[Syntax]
+```sql
+DELETE FROM <table name>
+[ WHERE <search condition> ]
+```
+]
+
+.panel[.panel-name[SQL]
+```sql
+DELETE
+FROM
+    municipalities
+WHERE
+    municipality_id = 0;
+
+DELETE
+FROM
+    governorates
+WHERE
+    name_fr = "TBS GOV";
+```
+]
+]
+
+---
+
+# Practice problems
+
+1. Which SQL statement should you use to add data to a table?
+  - (A) SELECT
+  - (B) INSERT
+  - (C) UPDATE
+  - (D) DELETE
+  
+2. Which statement should you use to modify existing data in one or more rows in a table?
+  - (A) SELECT
+  - (B) INSERT
+  - (C) UPDATE
+  - (D) DELETE
+3. Which statement or clause do you use in a DELETE statement to specify which rows are
+deleted from a table?
