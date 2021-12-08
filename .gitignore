@@ -54,3 +54,4 @@ po/*~
 *.pdf
 *.pptx
 $HOME
+*_files
