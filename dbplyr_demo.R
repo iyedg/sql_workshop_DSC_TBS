@@ -1,9 +1,9 @@
-library(dplyr, warn.conflicts = FALSE)
-library(here)
+library(dbplyr, warn.conflicts = FALSE)
 library(ggplot2)
+library(here)
+library(hrbrthemes)
 
-con <- DBI::dbConnect(RSQLite::SQLite(), 
-        dbname = here("data", "municipal_performance.sqlite3"))
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = here("data", "municipal_performance.sqlite3"))
 
 municipalities <- con %>% tbl("municipalities")
 governorates <- con %>% tbl("municipalities")
@@ -20,9 +20,11 @@ evaluations %>%
   select(name_fr, score, criterion_id) %>% 
   ggplot(aes(x = name_fr, y = score, fill = as.factor(criterion_id))) +
   geom_col() +
-  facet_wrap(~criterion_id)
+  facet_wrap(~criterion_id) +
+  theme_ipsum() +
+  scale_fill_ipsum()
   
 
-municipalities %>% top_n(20) %>% show_query()
+municipalities %>% select(starts_with("name")) %>% show_query()
 
-DBI::dbGetQuery(con, "select * from municipalities;")
+DBI::dbGetQuery(con, "select name_fr from municipalities limit 10;")
